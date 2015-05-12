@@ -16,11 +16,11 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            runProguard false
+	    minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             debuggable false
-            jniDebugBuild false
-            zipAlign true
+            jniDebuggable false
+            zipAlignEnabled true
         }
     }
     packagingOptions {
@@ -50,7 +50,7 @@ task copyNativeLibs(type: Copy) {
     into new File(buildDir, 'native-libs')
 }
 
-tasks.withType(Compile) { compileTask -> compileTask.dependsOn copyNativeLibs }
+tasks.withType(JavaCompile) { compileTask -> compileTask.dependsOn copyNativeLibs }
 
 clean.dependsOn 'cleanCopyNativeLibs'
 
